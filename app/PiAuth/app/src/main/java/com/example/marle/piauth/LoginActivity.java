@@ -84,6 +84,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
 
                 //attemptLogin();   ------------------------------------------------------------SKIPPING LOG IN FOR NOW
+
+                Intent intentMain = new Intent(LoginActivity.this ,
+                        TokenTest.class);
+                LoginActivity.this.startActivity(intentMain);
             }
         });
 
