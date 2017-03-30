@@ -8,7 +8,7 @@ git add .
 git commit -m 'commiting to run by pushAndRun'
 git push origin pushAndRun
 
-ssh pi@raspi 'cd IOT/pi/;git pull origin pushAndRun; git checkout pushAndRun; node blue.js > output.txt'
+ssh pi@raspi 'cd IOT/pi/;git pull origin pushAndRun; git checkout pushAndRun; node blue.js'
 
 
 
