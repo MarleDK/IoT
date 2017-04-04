@@ -14,4 +14,8 @@
         completions."
     </string>
     <string name="title_activity_token_test">TokenTest</string>
+    <string name="title_devices">BLE Connection</string>
+    <string name="ble_not_supported">BLE isn\'t supported</string>
+    <string name="error_bluetooth_not_supported">ERROR! Bluetooth isn\'t supported</string>
+    <string name="unknown_device">Unknown Device</string>
 </resources>
