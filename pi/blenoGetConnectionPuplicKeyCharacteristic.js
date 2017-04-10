@@ -1,3 +1,4 @@
+var bleno = require('bleno')
 var Characteristic = bleno.Characteristic;
 fs = require('fs')
 
