@@ -1,5 +1,5 @@
 var bleno = require('bleno')
-var getConnectionChar = require('./blenoGetConnectionPublicKeyCharacteristic')
+var getConnectionChar = require('./blenoGetConnectionPuplicKeyCharacteristic')
 
 var PrimaryService = bleno.PrimaryService;
 
