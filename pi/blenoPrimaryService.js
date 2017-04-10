@@ -9,7 +9,7 @@ class ConnectionService{
             new getConnectionPuplicKeyCharacteristic()
         ]
     }
-});
+}
 
 
 module.exports = ConnectionService;
