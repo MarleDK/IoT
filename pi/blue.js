@@ -8,7 +8,7 @@ bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
 
   if (state === 'poweredOn') {
-    bleno.startAdvertising('Raspi', []);
+    bleno.startAdvertising('Raspi', [primaryService.uuid]);
   } else {
     bleno.stopAdvertising();
   }
