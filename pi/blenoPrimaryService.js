@@ -6,7 +6,7 @@ var getConnectionChar = require('./blenoGetConnectionPuplicKeyCharacteristic')
 var PrimaryService = bleno.PrimaryService;
 
 
-class BatteryService() {
+class BatteryService{
     uuid: 'fffffffffffffffffffffffffffffff0', // or 'fff0' for 16-bit
     characteristics: [
         // see Characteristic for data type

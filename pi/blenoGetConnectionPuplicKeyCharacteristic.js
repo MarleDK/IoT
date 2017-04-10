@@ -13,7 +13,7 @@ function readRequestFunction(offset,callback){
   callback(this.RESULT_SUCCESS, new Buffer([publicKey]) )
 }
 
-class Characteristic({
+class Characteristic{
     uuid: 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
     properties: [ 'read' ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
     value: null, // optional static value, must be of type Buffer - for read only characteristics
@@ -26,6 +26,6 @@ class Characteristic({
     onUnsubscribe: null, // optional notify/indicate unsubscribe handler, function() { ...}
     onNotify: null, // optional notify sent handler, function() { ...}
     onIndicate: null // optional indicate confirmation received handler, function() { ...}
-});
+};
 
 module.exports = Characteristic;
