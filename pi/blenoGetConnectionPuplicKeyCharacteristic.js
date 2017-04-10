@@ -18,6 +18,7 @@ class Characteristic{
     this.properties = [ 'read' ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
     this.onReadRequest = readRequestFunction // optional read request handler, function(offset, callback) { ... }
     this.secure = []
+    this.descriptors = []
   }
 };
 
