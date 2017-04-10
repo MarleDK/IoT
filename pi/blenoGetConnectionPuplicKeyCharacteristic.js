@@ -6,6 +6,7 @@ function encrypt(key) {
 }
 
 function readRequestFunction(offset,callback){
+  console.log("read requested")
   var publicKey = Math.pow(10,10)*Math.random();
   var privateKey = encrypt(publicKey);
   fs.appendFile('./DB', privateKey+'\n')
