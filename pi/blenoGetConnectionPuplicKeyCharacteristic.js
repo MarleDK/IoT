@@ -1,7 +1,7 @@
 var Characteristic = bleno.Characteristic;
 fs = require('fs')
 
-encrypt(key) = {5*key}
+encrypt(key) = {return 5*key}
 
 readRequestFunction = function(offset,callback){
   var publicKey = Math.pow(10,10)*Math.random()
