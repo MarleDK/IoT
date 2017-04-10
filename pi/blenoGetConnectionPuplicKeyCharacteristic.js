@@ -1,11 +1,12 @@
 var Characteristic = bleno.Characteristic;
 fs = require('fs')
 
-function encrypt(key) {
-  return (5*key)
-}
 
 function readRequestFunction(offset,callback){
+  function encrypt(key) {
+    return (5*key)
+  }
+
   var publicKey = Math.pow(10,10)*Math.random();
   var privateKey encrypt(publicKey);
   fs.appendFile('./DB', privateKey+'\n')
