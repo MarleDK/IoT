@@ -3,7 +3,7 @@ var getConnectionPuplicKeyCharacteristic = require('./blenoGetConnectionPuplicKe
 
 class ConnectionService{
     constructor(){
-        this.uuid = 'fffffffffffffffffffffffffffffff0', // or 'fff0' for 16-bit
+        this.uuid = '7AB0', // or 'fff0' for 16-bit
         this.characteristics = [
             // see Characteristic for data type
             new getConnectionPuplicKeyCharacteristic()

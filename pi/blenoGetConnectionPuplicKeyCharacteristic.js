@@ -14,7 +14,7 @@ function readRequestFunction(offset,callback){
 
 class Characteristic{
   constructor(){
-    this.uuid = 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
+    this.uuid = '7AB1', // or 'fff1' for 16-bit
     this.properties = [ 'read' ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
     this.onReadRequest = readRequestFunction // optional read request handler, function(offset, callback) { ... }
     this.secure = []
