@@ -1,4 +1,25 @@
+var bleno = require('bleno')
+var PrimaryService = require('./blenoPrimaryService')
 
-var bleno = require('bleno');
 
-console.log('Hello World')
+var primaryService = new PrimaryService();
+
+bleno.on('stateChange', function(state) {
+  console.log('on -> stateChange: ' + state);
+
+  if (state === 'poweredOn') {
+    bleno.startAdvertising('Connect', [primaryService.uuid]);
+  } else {
+    bleno.stopAdvertising();
+  }
+});
+
+bleno.on('advertisingStart', function(error) {
+  console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
+
+  if (!error) {
+    bleno.setServices([primaryService], function(error){
+      console.log('setServices: '  + (error ? 'error ' + error : 'success'));
+    });
+  }
+});
