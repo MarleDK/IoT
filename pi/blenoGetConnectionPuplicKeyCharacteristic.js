@@ -16,7 +16,7 @@ var Characteristic = function() {
     properties : [ 'read' ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
     onReadRequest : function (offset,callback){
         console.log("read requested")
-        var publicKey = Math.pow(10,10)*Math.random();
+        var publicKey = Math.round(Math.pow(10,10)*Math.random());
         console.log("new public key: " + publicKey)
         var privateKey = encrypt(publicKey);
         console.log("new private key: " + privateKey)
