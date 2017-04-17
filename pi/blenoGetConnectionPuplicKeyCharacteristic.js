@@ -1,6 +1,8 @@
 var util = require('util')
 
 var bleno = require('bleno')
+BlenoCharacteristic = bleno.Characteristic
+
 fs = require('fs')
 
 function encrypt(key) {
@@ -24,5 +26,7 @@ var Characteristic = function() {
     descriptors : []
   })
 };
+
+util.inherits(Characteristic,BlenoCharacteristic)
 
 module.exports = Characteristic;
