@@ -6,7 +6,7 @@ function encrypt(key) {
 }
 
 
-var Characteristic = function{
+var Characteristic = function() {
   Characteristic.super_.call(this,{
     uuid : '00007ab1-0000-1000-8000-00805f9b34fb', // or 'fff1' for 16-bit
     properties : [ 'read' ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify', 'indicate'
