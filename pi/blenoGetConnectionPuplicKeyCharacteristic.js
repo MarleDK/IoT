@@ -1,3 +1,5 @@
+var util = require('util')
+
 var bleno = require('bleno')
 fs = require('fs')
 
