@@ -21,7 +21,7 @@ var Characteristic = function() {
         var privateKey = encrypt(publicKey);
         console.log("new private key: " + privateKey)
         fs.appendFile('./DB', privateKey+'\n')
-        callback(this.RESULT_SUCCESS, new Buffer([publicKey]) )
+        callback(this.RESULT_SUCCESS, new Buffer([publicKey.toString]) )
       },
  // optional read request handler, function(offset, callback) { ... }
     secure : [],
