@@ -148,13 +148,6 @@ class ConnectScan extends ScanCallback{
             BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(result.getDevice().getAddress());
             System.out.println("mBluetoothDevice is:" + mBluetoothDevice);
             BluetoothGatt mBluetoothGatt = mBluetoothDevice.connectGatt(appContext,true,new bLeGattCallback());
-            System.out.println("mBluetoothGatt.connect(): "+ mBluetoothGatt.connect());
-            System.out.println("mBluetoothGatt.getService()0: "+ mBluetoothGatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")));
-            System.out.println("mBluetoothGatt.getService()1: "+ mBluetoothGatt.getService(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb")));
-            System.out.println(mBluetoothGatt.discoverServices());
-            System.out.println(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"));
-            System.out.println(mBluetoothGatt.getServices());
-            mBluetoothGatt.readCharacteristic(new BluetoothGattCharacteristic(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"), 0x02, 0));
 
         }}catch (NullPointerException e){
 
@@ -169,10 +162,36 @@ class ConnectScan extends ScanCallback{
 class bLeGattCallback extends BluetoothGattCallback {
 
     @Override
+    public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+        super.onConnectionStateChange(gatt, status, newState);
+        if (newState == 1){
+            System.out.println("Connection state = connecting");
+        } else if (newState == 2){
+            System.out.println();
+            System.out.println("Connection state = connected");
+
+            System.out.println("mBluetoothGatt.discoverServices(): " + gatt.discoverServices());
+        }
+    }
+
+    @Override
     public void onCharacteristicRead(BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, int status) {
         // Callback reporting the result of a characteristic read operation.
-        System.out.println(characteristic.getStringValue(0));
+        super.onCharacteristicRead(gatt, characteristic,status);
+        System.out.println();
+        System.out.println("ReadCharacteristic status: "+ status);
+        System.out.println("Characteristic value: " + new String(characteristic.getValue()));
 
     }
 
+    @Override
+    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+        super.onServicesDiscovered(gatt, status);
+        System.out.println("discover services status: " + status);
+        System.out.println("mBluetoothGatt.getServices(): " + gatt.getServices());
+        System.out.println("mBluetoothGatt.getService()0: "+ gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")));
+        System.out.println("Characteristics: "+ gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0));
+        BluetoothGattCharacteristic mCharacteristic = gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0);
+        gatt.readCharacteristic(mCharacteristic);
+    }
 }
