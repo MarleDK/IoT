@@ -22,7 +22,7 @@ var Characteristic = function() {
         console.log("new private key: " + privateKey)
         fs.appendFile('./DB', privateKey+'\n')
         console.log(offset)
-        callback(this.RESULT_SUCCESS, new Buffer([publicKey.toString()]) )
+        callback(this.RESULT_SUCCESS, new Buffer([publicKey]) )
       },
  // optional read request handler, function(offset, callback) { ... }
     secure : [],
