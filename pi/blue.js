@@ -1,8 +1,15 @@
 var bleno = require('bleno')
-var PrimaryService = require('./blenoPrimaryService')
+var BlenoPrimaryService = bleno.PrimaryService
+var PuplicKeyCharacteristic = require('./blenoGetConnectionPuplicKeyCharacteristic')
 
 
-var primaryService = new PrimaryService();
+var primaryService = new BlenoPrimaryService({
+  uuid : '00007ab0-0000-1000-8000-00805f9b34fb', // or 'fff0' for 16-bit
+  characteristics : [
+      // see Characteristic for data type
+      new PuplicKeyCharacteristic()
+  ]
+});
 
 bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
