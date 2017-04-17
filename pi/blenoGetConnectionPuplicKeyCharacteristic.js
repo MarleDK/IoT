@@ -17,7 +17,9 @@ var Characteristic = function() {
     onReadRequest : function (offset,callback){
         console.log("read requested")
         var publicKey = Math.pow(10,10)*Math.random();
+        console.log("new public key: " + publicKey)
         var privateKey = encrypt(publicKey);
+        console.log("new private key: " + privateKey)
         fs.appendFile('./DB', privateKey+'\n')
         callback(this.RESULT_SUCCESS, new Buffer([publicKey]) )
       },
