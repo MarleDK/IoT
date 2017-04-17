@@ -20,6 +20,7 @@ bleno.on('advertisingStart', function(error) {
   if (!error) {
     bleno.setServices([primaryService], function(error){
       console.log('setServices: '  + (error ? 'error ' + error : 'success'));
+      console.log(primaryService.uuid)
     });
   }
 });

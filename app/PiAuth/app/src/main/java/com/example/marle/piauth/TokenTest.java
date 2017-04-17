@@ -10,9 +10,11 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -100,6 +102,7 @@ public class TokenTest extends AppCompatActivity{
 
 // Creating a new Thread to work on.
 class BlueTask extends AsyncTask<BluetoothLeScanner, Void, Void>{
+
     BluetoothAdapter mBluetoothAdapter;
     Context appContext;
     public BlueTask(BluetoothAdapter mBA, Context aC){
@@ -143,9 +146,13 @@ class ConnectScan extends ScanCallback{
         try{if(!result.getScanRecord().getServiceUuids().isEmpty() && result.getScanRecord().getServiceUuids().get(0).toString().startsWith("00007ab0")){
             System.out.println("Connecting to device: " + result.getScanRecord().getDeviceName());
             BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(result.getDevice().getAddress());
+            System.out.println("mBluetoothDevice is:" + mBluetoothDevice);
             BluetoothGatt mBluetoothGatt = mBluetoothDevice.connectGatt(appContext,true,new bLeGattCallback());
-            System.out.println("hejd");
+            System.out.println("mBluetoothGatt.connect(): "+ mBluetoothGatt.connect());
+            System.out.println("mBluetoothGatt.getService()0: "+ mBluetoothGatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")));
+            System.out.println("mBluetoothGatt.getService()1: "+ mBluetoothGatt.getService(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb")));
             System.out.println(mBluetoothGatt.discoverServices());
+            System.out.println(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"));
             System.out.println(mBluetoothGatt.getServices());
             mBluetoothGatt.readCharacteristic(new BluetoothGattCharacteristic(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"), 0x02, 0));
 
