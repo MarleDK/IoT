@@ -181,6 +181,7 @@ class bLeGattCallback extends BluetoothGattCallback {
         System.out.println();
         System.out.println("ReadCharacteristic status: "+ status);
         System.out.println("Characteristic value: " + new String(characteristic.getValue()));
+        global.publicKey = new String(characteristic.getValue());
 
     }
 
@@ -193,5 +194,8 @@ class bLeGattCallback extends BluetoothGattCallback {
         System.out.println("Characteristics: "+ gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0));
         BluetoothGattCharacteristic mCharacteristic = gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0);
         gatt.readCharacteristic(mCharacteristic);
+
+
+
     }
 }

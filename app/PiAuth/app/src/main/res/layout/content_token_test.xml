@@ -18,8 +18,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/BluetoothConnect"
-        android:layout_marginTop="67dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:text="Public key: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BluetoothConnect"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:id="@+id/publicKey" />
+
+    <Button
+        android:text="get Private Key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getPrivateKey"
+        android:layout_marginTop="24dp"
+        android:elevation="0dp"
+        android:layout_below="@+id/publicKey"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Private key:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getPrivateKey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:id="@+id/privateKey" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/privateKey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:id="@+id/writeToPi" />
+
+    <Button
+        android:text="print on pi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/writeToPi"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnWriteToPi" />
 
 </RelativeLayout>
