@@ -7,8 +7,7 @@ var primaryService = new BlenoPrimaryService({
   uuid : '00007ab0-0000-1000-8000-00805f9b34fb', // or 'fff0' for 16-bit
   characteristics : [
       // see Characteristic for data type
-      new PuplicKeyCharacteristic(),
-      new WriteCharacteristic()
+      new PuplicKeyCharacteristic()
   ]
 });
 
