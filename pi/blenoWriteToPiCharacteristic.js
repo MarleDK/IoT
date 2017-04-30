@@ -8,7 +8,7 @@ BlenoCharacteristic = bleno.Characteristic
 fs = require('fs')
 
 function getPrivateKey(string) {
-    return (string.slice(0,string.indexOf(":")),string.slice(string.indexOf(":")))
+    return [string.slice(0,string.indexOf(":")),string.slice(string.indexOf(":"))]
 }
 
 
@@ -20,7 +20,9 @@ var Characteristic = function() {
         console.log("write requested")
         req = String.fromCharCode.apply(null,data)
         console.log("request data: " + req)
-        var (privateKey,message) = getPrivateKey(req);
+        var temp = getPrivateKey(req)
+        privateKey = temp[0]
+        message = temp[1]
         console.log("private key: " + privateKey)
         if(db.privateKeys.indexOf(privateKey) > -1){
             console.log("---------" + message + "---------")
