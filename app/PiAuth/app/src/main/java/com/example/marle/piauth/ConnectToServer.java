@@ -30,7 +30,7 @@ public class ConnectToServer extends AsyncTask<Data, Void, Void> {
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
                             //mTextView.setText("Response is: "+ response.substring(0,500));
-                            //System.out.println(response);
+                            System.out.println("Got private key from server: " + response);
                             global.privateKey = response;
 
 

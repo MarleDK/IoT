@@ -112,8 +112,10 @@ public class BlueTask extends AsyncTask<BluetoothLeScanner, Void, Void> {
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             super.onServicesDiscovered(gatt, status);
             System.out.println("discover services status: " + status);
-            BluetoothGattCharacteristic mCharacteristic = gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristic(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"));
-            gatt.readCharacteristic(mCharacteristic);
+            global.gatt = gatt;
+            BluetoothGattCharacteristic readCharacteristic = gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristic(UUID.fromString("00007ab1-0000-1000-8000-00805f9b34fb"));
+
+            gatt.readCharacteristic(readCharacteristic);
 
 
         }

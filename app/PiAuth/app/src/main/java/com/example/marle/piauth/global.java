@@ -1,5 +1,8 @@
 package com.example.marle.piauth;
 
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +24,8 @@ public class global {
     public static String user;
     public static String publicKey;
     public static String privateKey;
+    public static BluetoothGatt gatt;
+
 
     public static void setQueue(android.content.Context cont){queue = Volley.newRequestQueue(cont);};
 }

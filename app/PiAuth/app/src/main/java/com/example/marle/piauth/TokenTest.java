@@ -115,7 +115,6 @@ public class TokenTest extends AppCompatActivity {
         final EditText user = (EditText) findViewById(R.id.user);
         final EditText pass = (EditText) findViewById(R.id.pass);
         global.setQueue(this);
-        System.out.println("getPrivateKey button: " + getPrivateKey);
 
         getPrivateKey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +136,7 @@ public class TokenTest extends AppCompatActivity {
             public void onClick(View v) {
                 String text = writeToPi.getText().toString();
                 System.out.println("Writing " + text + " to Pi");
-                new BlueWriteTask(mBluetoothAdapter , getApplicationContext(), text).execute(bLeScanner);
+                new BlueWriteTask().execute(text);
 
             }
         });
