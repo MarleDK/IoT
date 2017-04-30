@@ -21,13 +21,14 @@ var Characteristic = function() {
         req = String.fromCharCode.apply(null,data)
         console.log("request data: " + req)
         var temp = getPrivateKey(req)
-        privateKey = temp[0]
+        privateKey = parseInt(temp[0])
         message = temp[1]
         console.log("private key: " + privateKey)
         if(db.privateKeys.indexOf(privateKey) > -1){
             console.log("---------" + message + "---------")
             callback(this.RESULT_SUCCESS)
         } else {
+            console.log("Permission denied")
             callback(this.RESULT_SUCCESS)
         }
       },
