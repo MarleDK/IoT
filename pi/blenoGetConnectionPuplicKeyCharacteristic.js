@@ -1,5 +1,5 @@
 var util = require('util')
-
+var global = require('./blue')
 var bleno = require('bleno')
 BlenoCharacteristic = bleno.Characteristic
 
@@ -20,7 +20,7 @@ var Characteristic = function() {
         console.log("new public key: " + publicKey)
         var privateKey = encrypt(publicKey);
         console.log("new private key: " + privateKey)
-        fs.appendFile('./DB', privateKey+'\n')
+        global.PrivateKeys.add(privateKey)
         callback(this.RESULT_SUCCESS, Buffer.from(publicKey.toString()) )
       },
  // optional read request handler, function(offset, callback) { ... }

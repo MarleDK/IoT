@@ -2,7 +2,6 @@ var bleno = require('bleno')
 var BlenoPrimaryService = bleno.PrimaryService
 var PuplicKeyCharacteristic = require('./blenoGetConnectionPuplicKeyCharacteristic')
 
-
 var primaryService = new BlenoPrimaryService({
   uuid : '00007ab0-0000-1000-8000-00805f9b34fb', // or 'fff0' for 16-bit
   characteristics : [
@@ -31,3 +30,4 @@ bleno.on('advertisingStart', function(error) {
     });
   }
 });
+

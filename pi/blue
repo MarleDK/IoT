@@ -1,3 +1,0 @@
-#!/bin/bash/
-
-hcitool -i hci0 cmd 0x08 0x0008 10 02 01 1a 0c ff 18 01 48 45 4c 4c 4f 57 4f 52 4c 44

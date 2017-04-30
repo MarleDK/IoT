@@ -20,6 +20,7 @@ public class global {
     public static String password;
     public static String user;
     public static String publicKey;
+    public static String privateKey;
 
     public static void setQueue(android.content.Context cont){queue = Volley.newRequestQueue(cont);};
 }

@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,14 +29,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 import java.util.UUID;
 
-public class TokenTest extends AppCompatActivity{
+public class TokenTest extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothLeScanner bLeScanner;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +74,8 @@ public class TokenTest extends AppCompatActivity{
                 builder.setTitle("This app needs location access");
                 builder.setMessage("Please grant location access so this app can detect beacons.");
                 builder.setPositiveButton(android.R.string.ok, null);
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
-                    public void onDismiss(DialogInterface dialog){
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    public void onDismiss(DialogInterface dialog) {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
                     }
                 });
@@ -89,113 +103,45 @@ public class TokenTest extends AppCompatActivity{
                 }
 
                 // Starts scanning for devices.
-                BluetoothLeScanner bLeScanner = mBluetoothAdapter.getBluetoothLeScanner();
+                bLeScanner = mBluetoothAdapter.getBluetoothLeScanner();
 
                 new BlueTask(mBluetoothAdapter, getApplicationContext()).execute(bLeScanner);
 
             }
         });
 
-    }
 
-}
+        Button getPrivateKey = (Button) findViewById(R.id.getPrivateKey);
+        final EditText user = (EditText) findViewById(R.id.user);
+        final EditText pass = (EditText) findViewById(R.id.pass);
+        global.setQueue(this);
+        System.out.println("getPrivateKey button: " + getPrivateKey);
 
-// Creating a new Thread to work on.
-class BlueTask extends AsyncTask<BluetoothLeScanner, Void, Void>{
+        getPrivateKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    BluetoothAdapter mBluetoothAdapter;
-    Context appContext;
-    public BlueTask(BluetoothAdapter mBA, Context aC){
-        mBluetoothAdapter = mBA;
-        appContext = aC;
-    }
-    protected Void doInBackground(BluetoothLeScanner... bLeScanners) {
+                System.out.println("user: " + user.getText() + " pass: " + pass.getText());
+                Data data = new Data(user.getText().toString(), pass.getText().toString(), global.publicKey);
+                new ConnectToServer().execute(data);
 
-        for (BluetoothLeScanner ble: bLeScanners){
-            ble.startScan(new ConnectScan(mBluetoothAdapter, appContext));
-        }
 
-        return null;
-    }
-}
+            }
+        });
 
-// Making th logic behind the scaning
-class ConnectScan extends ScanCallback{
-    BluetoothAdapter mBluetoothAdapter;
-    Context appContext;
-    public ConnectScan(BluetoothAdapter mBA,Context aC){
-        super();
-        mBluetoothAdapter = mBA;
-        appContext = aC;
-    }
+        Button btnWriteToPi = (Button) findViewById(R.id.btnWriteToPi);
+        final EditText writeToPi = (EditText) findViewById(R.id.writeToPi);
 
-    public void onBatchScanResults(List<ScanResult> results){
-        System.out.println("onBatchScanResults:");
-        for(ScanResult r:results){
-            System.out.print(r.toString() + ", ");
-        }
-    }
+        btnWriteToPi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = writeToPi.getText().toString();
+                System.out.println("Writing " + text + " to Pi");
+                new BlueWriteTask(mBluetoothAdapter , getApplicationContext(), text).execute(bLeScanner);
 
-    public void onScanFailed(int errorCode){
-        System.out.println("onScanFailed: ");
-        System.out.println(errorCode);
-    }
-
-    public void onScanResult(int callbackType, ScanResult result){
-
-        try{if(!result.getScanRecord().getServiceUuids().isEmpty() && result.getScanRecord().getServiceUuids().get(0).toString().startsWith("00007ab0")){
-            System.out.println("Connecting to device: " + result.getScanRecord().getDeviceName());
-            BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(result.getDevice().getAddress());
-            System.out.println("mBluetoothDevice is:" + mBluetoothDevice);
-            BluetoothGatt mBluetoothGatt = mBluetoothDevice.connectGatt(appContext,true,new bLeGattCallback());
-
-        }}catch (NullPointerException e){
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            }
+        });
 
     }
 
-}
-
-class bLeGattCallback extends BluetoothGattCallback {
-
-    @Override
-    public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-        super.onConnectionStateChange(gatt, status, newState);
-        if (newState == 1){
-            System.out.println("Connection state = connecting");
-        } else if (newState == 2){
-            System.out.println();
-            System.out.println("Connection state = connected");
-
-            System.out.println("mBluetoothGatt.discoverServices(): " + gatt.discoverServices());
-        }
-    }
-
-    @Override
-    public void onCharacteristicRead(BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, int status) {
-        // Callback reporting the result of a characteristic read operation.
-        super.onCharacteristicRead(gatt, characteristic,status);
-        System.out.println();
-        System.out.println("ReadCharacteristic status: "+ status);
-        System.out.println("Characteristic value: " + new String(characteristic.getValue()));
-        global.publicKey = new String(characteristic.getValue());
-
-    }
-
-    @Override
-    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-        super.onServicesDiscovered(gatt, status);
-        System.out.println("discover services status: " + status);
-        System.out.println("mBluetoothGatt.getServices(): " + gatt.getServices());
-        System.out.println("mBluetoothGatt.getService()0: "+ gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")));
-        System.out.println("Characteristics: "+ gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0));
-        BluetoothGattCharacteristic mCharacteristic = gatt.getService(UUID.fromString("00007ab0-0000-1000-8000-00805f9b34fb")).getCharacteristics().get(0);
-        gatt.readCharacteristic(mCharacteristic);
-
-
-
-    }
 }
