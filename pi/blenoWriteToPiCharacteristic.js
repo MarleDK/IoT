@@ -8,7 +8,7 @@ BlenoCharacteristic = bleno.Characteristic
 fs = require('fs')
 
 function getPrivateKey(string) {
-    return [string.slice(0,string.indexOf(":")),string.slice(string.indexOf(":"))]
+    return [string.slice(0,string.indexOf(":")),string.slice(string.indexOf(":")+1)]
 }
 
 
